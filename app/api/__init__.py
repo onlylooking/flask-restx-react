@@ -21,19 +21,14 @@ db.init_app(app)
 app.register_blueprint(api, url_prefix='/api')
 CORS(app)
 
-# react
-# @app.route('/')
-# def Home():
-#     return 'REACT BRR'
-# @app.route("/", defaults={'path':''})
-# def serve(path):
-#     return send_from_directory(app.static_folder, 'index.html')
+# React
 @app.route("/")
 def serve():
     """serves React App"""
     return send_from_directory(app.static_folder, "index.html")
 
 
+# Static Files
 @app.route("/<path:path>")
 def static_proxy(path):
     """static folder serve"""
@@ -41,7 +36,7 @@ def static_proxy(path):
     dir_name = os.path.join(app.static_folder, "/".join(path.split("/")[:-1]))
     return send_from_directory(dir_name, file_name)
 
-
+# 404
 @app.errorhandler(404)
 def handle_404(e):
     if request.path.startswith("/api/"):
