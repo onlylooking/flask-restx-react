@@ -5,9 +5,10 @@ Copyright (c) 2019 - present AppSeed.us
 
 import json
 import os
-from flask import Flask, make_response, send_from_directory
+from flask import Flask, send_from_directory, request
 from flask_cors import CORS
-from .models import db
+
+from .models.database import db
 from .routes import blueprint as api
 
 app = Flask(__name__, static_url_path='/static/build/static', static_folder='../static/build')
@@ -21,12 +22,18 @@ db.init_app(app)
 app.register_blueprint(api, url_prefix='/api')
 CORS(app)
 
-# React
+# Setup database
+@app.before_first_request
+def initialize_database():
+    db.create_all()
+
+
+# PUBLIC
+# Index
 @app.route("/")
-def serve():
+def index():
     """serves React App"""
     return send_from_directory(app.static_folder, "index.html")
-
 
 # Static Files
 @app.route("/<path:path>")
@@ -40,24 +47,13 @@ def static_proxy(path):
 @app.errorhandler(404)
 def handle_404(e):
     if request.path.startswith("/api/"):
-        return jsonify(message="Resource not found"), 404
+        return json.dumps("Endpoint not found"), 404
     return send_from_directory(app.static_folder, "index.html")
 
-
-# 404
-@app.errorhandler(404)
-def page_not_found(error):
-    return '404'
-
-# Setup database
-@app.before_first_request
-def initialize_database():
-    db.create_all()
 
 """
    Custom responses
 """
-
 @app.after_request
 def after_request(response):
     """

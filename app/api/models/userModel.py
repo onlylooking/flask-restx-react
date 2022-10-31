@@ -1,17 +1,6 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from datetime import datetime
-
-import json
-
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
+from .database import db
 
 class Users(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -66,16 +55,3 @@ class Users(db.Model):
     def toJSON(self):
 
         return self.toDICT()
-
-
-class JWTTokenBlocklist(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    jwt_token = db.Column(db.String(700), nullable=False)
-    created_at = db.Column(db.DateTime(), nullable=False)
-
-    def __repr__(self):
-        return f"Expired Token: {self.jwt_token}"
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
