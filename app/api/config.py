@@ -1,9 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
-import os
 from datetime import timedelta
 
 mysql = {'host': 'localhost',
@@ -14,8 +8,7 @@ mysql = {'host': 'localhost',
 mysqlConfig = "mysql+pymysql://{}:{}@{}/{}".format(mysql['user'], mysql['passwd'], mysql['host'], mysql['db'])
 
 
-class BaseConfig():
-
+class BaseConfig:
     SQLALCHEMY_DATABASE_URI = mysqlConfig
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = "flask-app-secret-key-change-it"
