@@ -1,0 +1,23 @@
+/************************************************
+
+Stylesheet: Global Stylesheet
+
+*************************************************/
+
+html {
+    overflow-y: scroll;
+}
+
+.off-canvas-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    .content {
+        flex-grow: 1;
+    }
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}

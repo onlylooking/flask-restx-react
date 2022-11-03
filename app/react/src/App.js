@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// pages
+import Layout from "./pages/Layout";
+import PageHome from './pages/PageHome';
+import PageBlog from './pages/PageBlog';
+// dashboard
+import DashboardLayout from './dashboard/DashboardLayout';
+import DashboardHome from './dashboard/DashboardHome';
+import DashboardAccount from './dashboard/DashboardAccount';
+// 404
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          yo
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+
+                    {/* public */}
+                    <Route index element={<PageHome />} />
+                    <Route path="blog" element={<PageBlog />} />
+
+                    {/* dashboard */}
+                    <Route path="dashboard" element={<DashboardLayout />}>
+                        <Route index element={<DashboardHome />} />
+                        <Route path='account' element={<DashboardAccount />} />
+                    </Route>
+
+                    {/* 404 */}
+                    <Route path="*" element={<PageNotFound />} />
+
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

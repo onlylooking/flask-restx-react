@@ -1,0 +1,35 @@
+header#header {
+    background-color: $green;
+
+    .menu {
+        li {
+            a {
+                color: $white;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            &:last-child {
+                a {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+
+    #top-bar {
+        background-color: $lightblue;
+        padding: 0.5rem 0;
+    }
+
+    #navigation {
+        padding: 0.5rem 0;
+
+        .logo {
+            color: $white;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+    }
+}

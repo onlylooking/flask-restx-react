@@ -1,0 +1,18 @@
+footer#footer {
+    background-color: $blue;
+    color: $white;
+    padding-top: 2rem;
+
+    .copyright {
+        margin-top: 3rem;
+        background-color: $lightblue;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        p {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            font-size: 0.6rem;
+        }
+    }
+}
