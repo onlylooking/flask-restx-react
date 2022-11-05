@@ -3,13 +3,20 @@ header#header {
 
     .menu {
         li {
-            a {
+            a, button {
                 color: $white;
                 padding-top: 0;
                 padding-bottom: 0;
+                cursor: pointer;
+            }
+            button {
+                line-height: 1;
+                text-decoration: none;
+                display: block;
+                padding: 0rem 1rem;
             }
             &:last-child {
-                a {
+                a, button {
                     padding-right: 0;
                 }
             }

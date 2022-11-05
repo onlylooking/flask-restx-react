@@ -7,6 +7,7 @@ class Users(db.Model):
     username = db.Column(db.String(32), nullable=False)
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.Text())
+    role = db.Column(db.Integer(), default=0)
     jwt_auth_active = db.Column(db.Boolean())
     date_joined = db.Column(db.DateTime(), default=datetime.utcnow)
 
@@ -44,7 +45,6 @@ class Users(db.Model):
         return cls.query.filter_by(email=email).first()
 
     def toDICT(self):
-
         cls_dict = {}
         cls_dict['_id'] = self.id
         cls_dict['username'] = self.username
@@ -53,5 +53,4 @@ class Users(db.Model):
         return cls_dict
 
     def toJSON(self):
-
         return self.toDICT()

@@ -44,7 +44,7 @@ class Register(Resource):
         user_exists = Users.get_by_email(_email)
         if user_exists:
             return {"success": False,
-                    "msg": "Email already taken"}, 400
+                    "msg": "Email already taken"}, 200
 
         new_user = Users(username=_username, email=_email)
 
@@ -53,7 +53,7 @@ class Register(Resource):
 
         return {"success": True,
                 "userID": new_user.id,
-                "msg": "The user was successfully registered"}, 200
+                "msg": "The user was successfully registered"}, 201
 
 
 @api.route('/login')
@@ -74,11 +74,11 @@ class Login(Resource):
 
         if not user_exists:
             return {"success": False,
-                    "msg": "This email does not exist."}, 400
+                    "msg": "This email does not exist."}, 200
 
         if not user_exists.check_password(_password):
             return {"success": False,
-                    "msg": "Wrong credentials."}, 400
+                    "msg": "Wrong credentials."}, 200
 
         # create access token uwing JWT
         token = jwt.encode({'email': _email, 'exp': datetime.utcnow() + timedelta(minutes=30)}, BaseConfig.SECRET_KEY)
@@ -88,7 +88,7 @@ class Login(Resource):
 
         return {"success": True,
                 "token": token,
-                "user": user_exists.toJSON()}, 200
+                "user": user_exists.toJSON()}, 201
 
 
 @api.route('/edit')
@@ -127,7 +127,9 @@ class LogoutUser(Resource):
     def post(self, current_user):
 
         _jwt_token = request.headers["authorization"]
-
+        print('_jwt_token')
+        print(_jwt_token)
+        print('_jwt_token')
         jwt_block = JWTTokenBlocklist(jwt_token=_jwt_token, created_at=datetime.now(timezone.utc))
         jwt_block.save()
 
