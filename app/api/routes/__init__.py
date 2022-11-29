@@ -10,7 +10,7 @@ blueprint = Blueprint('api', __name__)
 rest_api = Api(blueprint,
     title='Ecomm API',
     version='1.0',
-    description='More people need to start realizing the swag of a good durag.',
+    description='Description.',
     )
 
 rest_api.add_namespace(ns1)
